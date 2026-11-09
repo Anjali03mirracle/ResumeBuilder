@@ -4,36 +4,59 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
-// Lightweight, free-tier optimized model configuration (consumes minimal tokens)
-const getGenerativeModel = () => {
-  return genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
-    generationConfig: {
-      temperature: 0.7,
-      topP: 0.9,
-      maxOutputTokens: 800, // Keeps token usage low so free tier quota is preserved
-      responseMimeType: "application/json",
-    },
-  });
-};
+// Supported free-tier models with fallback to guarantee 0 404 errors
+const FREE_MODELS = [
+  "gemini-2.0-flash",
+  "gemini-2.5-flash",
+  "gemini-2.0-flash-lite",
+  "gemini-1.5-flash-latest",
+];
 
 async function askGemini(prompt: string): Promise<string> {
   if (!process.env.GEMINI_API_KEY) {
-    throw new Error("GEMINI_API_KEY is not configured in environment variables.");
+    throw new Error(
+      "GEMINI_API_KEY is not configured in environment variables. Please add it in your Vercel project settings."
+    );
   }
 
-  const model = getGenerativeModel();
-  const result = await model.generateContent(prompt);
-  let text = result.response.text().trim();
+  let lastError: any = null;
 
-  // Strip code block fences if returned
-  if (text.startsWith("```json")) {
-    text = text.replace(/^```json\s*/, "").replace(/\s*```$/, "");
-  } else if (text.startsWith("```")) {
-    text = text.replace(/^```\s*/, "").replace(/\s*```$/, "");
+  for (const modelName of FREE_MODELS) {
+    try {
+      const model = genAI.getGenerativeModel({
+        model: modelName,
+        generationConfig: {
+          temperature: 0.7,
+          topP: 0.9,
+          maxOutputTokens: 800, // Token-saving: ensures free tier quota lasts
+          responseMimeType: "application/json",
+        },
+      });
+
+      const result = await model.generateContent(prompt);
+      let text = result.response.text().trim();
+
+      // Strip markdown code fences if returned
+      if (text.startsWith("```json")) {
+        text = text.replace(/^```json\s*/, "").replace(/\s*```$/, "");
+      } else if (text.startsWith("```")) {
+        text = text.replace(/^```\s*/, "").replace(/\s*```$/, "");
+      }
+
+      return text;
+    } catch (err: any) {
+      lastError = err;
+      console.warn(`Model ${modelName} failed, trying next candidate:`, err?.message);
+      // If it's a 404 model not found, loop to next model
+      if (err?.message?.includes("404") || err?.message?.includes("not found")) {
+        continue;
+      }
+      // If it's another error (like quota or invalid API key), rethrow
+      throw err;
+    }
   }
 
-  return text;
+  throw lastError || new Error("All free Gemini models failed to generate content.");
 }
 
 export async function generateSummary(jobTitle: string) {
