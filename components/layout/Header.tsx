@@ -27,7 +27,7 @@ const Header = () => {
 
             <div>
               <h1 className="text-xl font-bold text-slate-900">ResumeCraft</h1>
-              <p className="text-xs text-slate-500 -mt-1">AI Resume Builder</p>
+              <p className="text-xs text-slate-500 -mt-1">Resume Builder</p>
             </div>
           </Link>
 

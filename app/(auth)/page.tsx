@@ -6,10 +6,11 @@ import {
   ArrowBigUp,
   ArrowRight,
   AtomIcon,
-  Bot,
+  CheckCircle2,
   Edit,
   Eye,
   FileCheck,
+  FileText,
   Palette,
   Share2,
   ShieldCheck,
@@ -31,18 +32,18 @@ const Page = () => {
         <section className="relative overflow-hidden py-16 sm:py-24 px-6 mx-auto max-w-7xl text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200/60 text-blue-700 text-xs sm:text-sm font-medium mb-6 shadow-sm">
             <Sparkles className="h-4 w-4 text-blue-600" />
-            <span>Real AI Resume Builder with Google Gemini</span>
+            <span>Professional Online Resume Builder</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
             Build a Job-Winning Resume <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
-              Powered by Real AI
+              In Just Minutes
             </span>
           </h1>
 
           <p className="mt-6 text-base sm:text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Craft your professional summary, generate role-specific achievement bullet points, and discover in-demand skills tailored to your career — powered by Google Gemini AI.
+            Craft your professional summary, highlight your career achievements, and organize your skills to impress recruiters and hiring managers.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -89,25 +90,25 @@ const Page = () => {
                 Step 1
               </span>
               <h4 className="text-xl font-bold text-slate-900 mt-1 mb-2">
-                Enter Your Job Details
+                Choose Your Colors & Theme
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Add your target position, education, and companies. Our system automatically structures your information for maximum readability.
+                Pick a clean accent color theme that matches your industry and personal professional brand.
               </p>
             </div>
 
             <div className="p-8 bg-white border border-slate-200/80 rounded-2xl shadow-sm hover:shadow-md transition text-left relative">
               <div className="w-12 h-12 rounded-xl bg-violet-100 flex items-center justify-center text-violet-600 font-bold mb-5">
-                <Sparkles className="h-6 w-6" />
+                <Edit className="h-6 w-6" />
               </div>
               <span className="text-xs font-bold text-violet-600 uppercase tracking-widest">
                 Step 2
               </span>
               <h4 className="text-xl font-bold text-slate-900 mt-1 mb-2">
-                Generate Content with AI
+                Add Experience & Details
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Click "Generate with AI" to let Gemini write impact-driven summaries, work experience bullet points, and recommend top industry skills.
+                Enter your work history, education, skills, and summary using our intuitive, structured form editor.
               </p>
             </div>
 
@@ -122,7 +123,7 @@ const Page = () => {
                 Download & Share
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Export an ATS-compliant PDF ready for applications, or share a live web link directly with recruiters and hiring managers.
+                Export an ATS-compliant PDF ready for job applications, or share a live web link directly with recruiters.
               </p>
             </div>
           </div>
@@ -141,32 +142,32 @@ const Page = () => {
               Everything You Need to Get Hired
             </h3>
             <p className="text-slate-600 mt-2 text-sm sm:text-base">
-              Integrated with Google Gemini AI models to assist you at every step of your resume building.
+              Designed from the ground up to give candidates a clear advantage in their job search.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="p-6 rounded-2xl border border-slate-100 bg-slate-50/60 hover:bg-slate-50 transition">
               <div className="w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center mb-4 shadow-sm">
-                <Bot className="h-5 w-5" />
+                <FileText className="h-5 w-5" />
               </div>
               <h4 className="text-lg font-bold text-slate-900 mb-2">
-                AI Summary & Bullet Generator
+                Structured Summary Writer
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Generate 3 levels of summaries (Fresher, Mid, Senior) and high-impact accomplishment bullets with action verbs.
+                Create clear, concise, and impactful professional summaries tailored to your target job titles and career goals.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl border border-slate-100 bg-slate-50/60 hover:bg-slate-50 transition">
               <div className="w-10 h-10 rounded-lg bg-violet-600 text-white flex items-center justify-center mb-4 shadow-sm">
-                <Sparkles className="h-5 w-5" />
+                <CheckCircle2 className="h-5 w-5" />
               </div>
               <h4 className="text-lg font-bold text-slate-900 mb-2">
-                AI Skill Recommender
+                Comprehensive Skill Management
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Discover the most in-demand technical and soft skills for your exact role and add them to your resume in a single click.
+                Easily organize, add, and display your technical, domain, and soft skills to highlight your core strengths.
               </p>
             </div>
 
@@ -178,7 +179,7 @@ const Page = () => {
                 ATS-Optimized Layout
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Clean semantic hierarchy designed to score high on Applicant Tracking Systems (ATS) and avoid recruiter filters.
+                Clean semantic hierarchy designed to pass Applicant Tracking Systems (ATS) without getting filtered out.
               </p>
             </div>
 
@@ -190,7 +191,7 @@ const Page = () => {
                 Accent Themes & Styling
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Personalize your resume headers and section dividers with professionally selected modern color palettes.
+                Personalize your resume headers and section dividers with curated professional modern color palettes.
               </p>
             </div>
 
@@ -202,7 +203,7 @@ const Page = () => {
                 Live Interactive Preview
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Instant side-by-side preview shows your resume dynamically updating in real-time as you write or apply AI suggestions.
+                Instant side-by-side preview shows your resume dynamically updating in real-time as you write and edit.
               </p>
             </div>
 
@@ -227,7 +228,7 @@ const Page = () => {
               Ready to Land Your Next Dream Job?
             </h3>
             <p className="mt-4 text-blue-100 max-w-xl mx-auto text-sm sm:text-base">
-              Create your professional, AI-powered resume in minutes. Free forever.
+              Create your professional resume in minutes. Free forever.
             </p>
             <div className="mt-8">
               <Link

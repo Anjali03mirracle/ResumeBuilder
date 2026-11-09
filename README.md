@@ -1,11 +1,11 @@
 # ResumeCraft
 
-**ResumeCraft** is an resume builder designed to help users create professional, customized resumes with ease. By leveraging AI, ResumeCraft ensures that each resume is tailored to highlight the user’s skills, experience, and achievements effectively.
+**ResumeCraft** is a resume builder designed to help users create professional, customized resumes with ease. ResumeCraft ensures that each resume is tailored to highlight the user’s skills, experience, and achievements effectively.
 
 
 ## <a name="features">✨ Features </a>
 
-- **AI-Powered Resume Generation:** Generate a professional resume using AI.
+- **Professional Resume Generation:** Generate a clean, polished resume effortlessly.
 
 - **User Authentication:** Secure login and registration with Clerk.
 

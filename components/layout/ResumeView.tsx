@@ -55,7 +55,7 @@ const FinalResumeView = ({
                   You are currently viewing a preview of someone else's resume.
                 </p>
                 <p className="text-center text-sm text-gray-500 font-light">
-                  For the ultimate experience, create your own AI-generated
+                  For the ultimate experience, create your own professional
                   resume.
                 </p>
               </>

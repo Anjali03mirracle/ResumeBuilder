@@ -4,22 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { generateEducationDescription } from "@/lib/actions/gemini.actions";
 import { addEducationToResume } from "@/lib/actions/resume.actions";
 import { useFormContext } from "@/lib/context/FormProvider";
-import { Check, Loader2, Minus, Plus, Sparkles } from "lucide-react";
+import { Loader2, Minus, Plus } from "lucide-react";
 import React, { useState } from "react";
-
-interface AiEduItem {
-  level: string;
-  description: string;
-}
 
 const EducationForm = ({ params }: { params: { id: string } }) => {
   const { formData, handleInputChange } = useFormContext();
   const [isLoading, setIsLoading] = useState(false);
-  const [aiLoadingIndex, setAiLoadingIndex] = useState<number | null>(null);
-  const [aiSuggestionsMap, setAiSuggestionsMap] = useState<{ [key: number]: AiEduItem[] }>({});
 
   const [educationList, setEducationList] = useState(
     formData?.education?.length > 0
@@ -86,68 +78,6 @@ const EducationForm = ({ params }: { params: { id: string } }) => {
         name: "education",
         value: newEntries,
       },
-    });
-  };
-
-  const handleGenerateAiEducation = async (index: number) => {
-    const currentEdu = educationList[index];
-    const eduInfo = `${currentEdu.degree || ""} ${currentEdu.major || ""} at ${currentEdu.universityName || ""}`.trim();
-
-    if (!eduInfo || eduInfo === "at") {
-      toast({
-        title: "Education Info Required",
-        description: "Please enter your University Name, Degree, or Major first.",
-        variant: "destructive",
-        className: "bg-white",
-      });
-      return;
-    }
-
-    setAiLoadingIndex(index);
-
-    const res = await generateEducationDescription(eduInfo);
-
-    if (res.success && res.data && res.data.length > 0) {
-      setAiSuggestionsMap((prev) => ({ ...prev, [index]: res.data }));
-      toast({
-        title: "AI Highlights Ready!",
-        description: "Click an option below to apply it.",
-        className: "bg-white",
-      });
-    } else {
-      toast({
-        title: "AI Generation Error",
-        description: res.error || "Could not generate education highlights.",
-        variant: "destructive",
-        className: "bg-white",
-      });
-    }
-
-    setAiLoadingIndex(null);
-  };
-
-  const applyAiEdu = (index: number, desc: string) => {
-    const newEntries = educationList.slice();
-    newEntries[index].description = desc;
-    setEducationList(newEntries);
-
-    handleInputChange({
-      target: {
-        name: "education",
-        value: newEntries,
-      },
-    });
-
-    setAiSuggestionsMap((prev) => {
-      const copy = { ...prev };
-      delete copy[index];
-      return copy;
-    });
-
-    toast({
-      title: "Description Applied",
-      description: "Updated your education highlights.",
-      className: "bg-white",
     });
   };
 
@@ -257,73 +187,9 @@ const EducationForm = ({ params }: { params: { id: string } }) => {
               </div>
 
               <div className="space-y-2 pt-2 border-t border-slate-200">
-                <div className="flex items-center justify-between flex-wrap gap-2">
-                  <label className="text-slate-700 font-semibold text-sm">
-                    Key Highlights & Activities:
-                  </label>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleGenerateAiEducation(index)}
-                    disabled={aiLoadingIndex === index}
-                    className="border-violet-300 text-violet-700 hover:bg-violet-50 text-xs flex items-center gap-1.5 shadow-sm"
-                  >
-                    {aiLoadingIndex === index ? (
-                      <>
-                        <Loader2 size={14} className="animate-spin text-violet-600" />
-                        <span>Generating AI...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles size={14} className="text-violet-600" />
-                        <span>Generate with AI</span>
-                      </>
-                    )}
-                  </Button>
-                </div>
-
-                {/* AI Suggestions for Education */}
-                {aiSuggestionsMap[index] && (
-                  <div className="p-3 bg-violet-50 border border-violet-200 rounded-xl space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-violet-800 uppercase tracking-wider flex items-center gap-1">
-                        <Sparkles size={13} /> Select AI Highlight:
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const copy = { ...aiSuggestionsMap };
-                          delete copy[index];
-                          setAiSuggestionsMap(copy);
-                        }}
-                        className="text-xs text-slate-500 hover:text-slate-800"
-                      >
-                        Dismiss
-                      </button>
-                    </div>
-
-                    <div className="grid grid-cols-1 gap-2">
-                      {aiSuggestionsMap[index].map((opt, optIdx) => (
-                        <div
-                          key={optIdx}
-                          onClick={() => applyAiEdu(index, opt.description)}
-                          className="p-3 bg-white rounded-lg border border-slate-200 hover:border-violet-500 cursor-pointer transition text-left"
-                        >
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-violet-100 text-violet-700">
-                              {opt.level}
-                            </span>
-                            <span className="text-xs text-violet-600 font-medium">Click to use</span>
-                          </div>
-                          <p className="text-xs text-slate-700 leading-relaxed">
-                            {opt.description}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                <label className="text-slate-700 font-semibold text-sm">
+                  Key Highlights & Activities:
+                </label>
 
                 <Textarea
                   name="description"

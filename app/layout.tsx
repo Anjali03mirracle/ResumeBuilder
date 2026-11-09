@@ -9,9 +9,9 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito" });
 
 export const metadata: Metadata = {
-  title: "ResumeCraft - Professional AI Resume Builder",
+  title: "ResumeCraft - Professional Resume Builder",
   description:
-    "Generate a polished, professional resume in just a few clicks with our AI-powered resume builder.",
+    "Generate a polished, professional resume in just a few clicks with our resume builder.",
   icons: {
     icon: "/icons/favicon.ico",
   },
